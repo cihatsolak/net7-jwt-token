@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace AuthServer.Core.Models.Dtos
+namespace SharedLibrary.Dtos
 {
     public class ErrorDto
     {

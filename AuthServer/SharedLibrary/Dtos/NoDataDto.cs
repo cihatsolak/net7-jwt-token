@@ -1,4 +1,4 @@
-﻿namespace AuthServer.Core.Models.Dtos
+﻿namespace SharedLibrary.Dtos
 {
     public class NoDataDto
     {

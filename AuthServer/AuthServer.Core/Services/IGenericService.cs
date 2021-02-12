@@ -1,6 +1,6 @@
 ﻿using AuthServer.Core.Domain.Interfaces;
-using AuthServer.Core.Models;
-using AuthServer.Core.Models.Dtos;
+using SharedLibrary.Dtos;
+using SharedLibrary.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
