@@ -1,7 +1,10 @@
-﻿using AuthServer.API.Models.Dtos;
+﻿using AuthServer.Shared.Models.Dtos;
+using System;
+using System.Collections.Generic;
+using System.Text;
 using System.Text.Json.Serialization;
 
-namespace AuthServer.API.Models
+namespace AuthServer.Shared.Models
 {
     public class ResponseModel<TModel> where TModel : class
     {

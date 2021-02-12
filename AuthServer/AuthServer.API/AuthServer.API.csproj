@@ -10,11 +10,11 @@
 
   <ItemGroup>
     <Folder Include="Controllers\" />
+    <Folder Include="Models\" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\AuthServer.Service\AuthServer.Service.csproj" />
-    <ProjectReference Include="..\AuthServer.Shared\AuthServer.Shared.csproj" />
   </ItemGroup>
 
 </Project>

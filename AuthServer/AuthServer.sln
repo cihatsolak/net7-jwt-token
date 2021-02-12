@@ -3,15 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthServer.API", "AuthServer.API\AuthServer.API.csproj", "{0DC76C56-1C8C-427D-BBAD-ACEAE39E3C6B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuthServer.API", "AuthServer.API\AuthServer.API.csproj", "{0DC76C56-1C8C-427D-BBAD-ACEAE39E3C6B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthServer.Core", "AuthServer.Core\AuthServer.Core.csproj", "{F0D4C247-B6AE-46F9-A1BD-CF7E77D4C366}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuthServer.Core", "AuthServer.Core\AuthServer.Core.csproj", "{F0D4C247-B6AE-46F9-A1BD-CF7E77D4C366}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthServer.Data", "AuthServer.Data\AuthServer.Data.csproj", "{E201A14A-D838-4B8A-B274-1818C9302DE3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuthServer.Data", "AuthServer.Data\AuthServer.Data.csproj", "{E201A14A-D838-4B8A-B274-1818C9302DE3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthServer.Service", "AuthServer.Service\AuthServer.Service.csproj", "{D570C40E-D329-484B-AED3-D0375A82AD5D}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthServer.Shared", "AuthServer.Shared\AuthServer.Shared.csproj", "{B439461B-206B-4384-AC02-CC02E83C29DE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuthServer.Service", "AuthServer.Service\AuthServer.Service.csproj", "{D570C40E-D329-484B-AED3-D0375A82AD5D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,10 +33,6 @@ Global
 		{D570C40E-D329-484B-AED3-D0375A82AD5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D570C40E-D329-484B-AED3-D0375A82AD5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D570C40E-D329-484B-AED3-D0375A82AD5D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B439461B-206B-4384-AC02-CC02E83C29DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B439461B-206B-4384-AC02-CC02E83C29DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B439461B-206B-4384-AC02-CC02E83C29DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B439461B-206B-4384-AC02-CC02E83C29DE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
