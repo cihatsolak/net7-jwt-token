@@ -18,10 +18,10 @@ namespace AuthServer.Data.Concrete.EntityFrameworkCore.Repositories
         #endregion
 
         #region Ctor
-        public GenericRepository(AppDbContext context)
+        public GenericRepository(AppDbContext dbContext)
         {
-            _context = context;
-            _dbSet = context.Set<TEntity>();
+            _context = dbContext;
+            _dbSet = dbContext.Set<TEntity>();
         }
         #endregion
 
@@ -39,10 +39,11 @@ namespace AuthServer.Data.Concrete.EntityFrameworkCore.Repositories
         public async Task<TEntity> GetByIdAsync(int id)
         {
             TEntity entity = await _dbSet.FindAsync(id);
-            
+            if (entity == null)
+                return entity;
+
             //Note: Bellekte bu veri ef tarafından takip edilmesin.
-            if (entity != null)
-                _context.Entry(entity).State = EntityState.Detached;
+            _context.Entry(entity).State = EntityState.Detached;
 
             return entity;
         }
