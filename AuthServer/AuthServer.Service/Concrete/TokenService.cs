@@ -12,6 +12,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Security.Cryptography;
+using System.Text;
 
 namespace AuthServer.Service.Concrete
 {
@@ -75,7 +76,7 @@ namespace AuthServer.Service.Concrete
             var accessTokenExpiration = DateTime.Now.AddMinutes(_customTokenSetting.AccessTokenExpiration); //Token Süresi
             var refreshTokenExpiration = DateTime.Now.AddMinutes(_customTokenSetting.RefreshTokenExpiration); //Token Süresi
 
-            var securityKey = SignService.GetSymmetricSecurityKey(_customTokenSetting.SecurityKey); //Belirlediğim string şifreyi simetrik şifreye çeviriyorum
+            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_customTokenSetting.SecurityKey)); //Belirlediğim string şifreyi simetrik şifreye çeviriyorum
 
             SigningCredentials signingCredentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256); //İmzalıyorum.
 
@@ -106,7 +107,7 @@ namespace AuthServer.Service.Concrete
         {
             var accessTokenExpiration = DateTime.Now.AddMinutes(_customTokenSetting.AccessTokenExpiration); //Token Süresi
 
-            var securityKey = SignService.GetSymmetricSecurityKey(_customTokenSetting.SecurityKey); //Belirlediğim string şifreyi simetrik şifreye çeviriyorum
+            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_customTokenSetting.SecurityKey)); //Belirlediğim string şifreyi simetrik şifreye çeviriyorum
 
             SigningCredentials signingCredentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256); //İmzalıyorum.
 
