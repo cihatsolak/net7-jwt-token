@@ -6,6 +6,8 @@ namespace AuthServer.Core.Configuration
     {
         public int Id { get; set; }
         public string Secret { get; set; }
+
+        //Üyelik sistemi olmayan hangi api'lere erişebilir.
         public List<string> Audiences { get; set; }
     }
 }
