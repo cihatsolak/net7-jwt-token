@@ -1,3 +1,4 @@
+using AuthServer.Core.Domain;
 using AuthServer.Core.Repositories;
 using AuthServer.Core.UnitOfWorks;
 using AuthServer.Data.Concrete.EntityFrameworkCore.Contexts;
@@ -5,11 +6,13 @@ using AuthServer.Data.Concrete.EntityFrameworkCore.Repositories;
 using AuthServer.Data.Concrete.EntityFrameworkCore.UnitOfWorks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using SharedLibrary.Settings;
 
 namespace AuthServer.API
 {
@@ -25,10 +28,12 @@ namespace AuthServer.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<CustomTokenSetting>(Configuration.GetSection(nameof(CustomTokenSetting)));
+
             services.AddDbContext<AppDbContext>(options =>
             {
                 options.UseSqlServer(Configuration.GetConnectionString("Default"));
-            });
+            }).AddIdentity<User,IdentityRole>();
 
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddScoped<IUnitOfWork, UnitOfWork>();
