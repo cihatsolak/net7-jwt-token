@@ -1,3 +1,4 @@
+using AuthServer.Core.Configuration;
 using AuthServer.Core.Domain;
 using AuthServer.Core.Repositories;
 using AuthServer.Core.UnitOfWorks;
@@ -13,6 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using SharedLibrary.Settings;
+using System.Collections.Generic;
 
 namespace AuthServer.API
 {
@@ -29,11 +31,12 @@ namespace AuthServer.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.Configure<CustomTokenSetting>(Configuration.GetSection(nameof(CustomTokenSetting)));
+            services.Configure<List<Client>>(Configuration.GetSection(nameof(Client)));
 
             services.AddDbContext<AppDbContext>(options =>
             {
                 options.UseSqlServer(Configuration.GetConnectionString("Default"));
-            }).AddIdentity<User,IdentityRole>();
+            }).AddIdentity<User, IdentityRole>();
 
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddScoped<IUnitOfWork, UnitOfWork>();
