@@ -1,4 +1,8 @@
+using AuthServer.Core.Repositories;
+using AuthServer.Core.UnitOfWorks;
 using AuthServer.Data.Concrete.EntityFrameworkCore.Contexts;
+using AuthServer.Data.Concrete.EntityFrameworkCore.Repositories;
+using AuthServer.Data.Concrete.EntityFrameworkCore.UnitOfWorks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -25,6 +29,9 @@ namespace AuthServer.API
             {
                 options.UseSqlServer(Configuration.GetConnectionString("Default"));
             });
+
+            services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
