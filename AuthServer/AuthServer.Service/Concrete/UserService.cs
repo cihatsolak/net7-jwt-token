@@ -41,7 +41,7 @@ namespace AuthServer.Service.Concrete
 
             var userDto = ObjectMapper.Mapper.Map<UserDto>(user);
 
-            return ResponseModel<UserDto>.Success(userDto, 200);
+            return ResponseModel<UserDto>.Success(userDto, 201);
         }
 
         public async Task<ResponseModel<UserDto>> GetUserByName(string userName)
