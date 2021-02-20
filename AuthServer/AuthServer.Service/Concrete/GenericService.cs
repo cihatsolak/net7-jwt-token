@@ -89,7 +89,7 @@ namespace AuthServer.Service.Concrete
             _repository.Update(entityForDto);
             await _unitOfWork.SaveChangesAsync();
 
-            return ResponseModel<NoDataDto>.Success(200);
+            return ResponseModel<NoDataDto>.Success(204);
         }
 
         public async Task<ResponseModel<NoDataDto>> Remove(int id)
@@ -101,7 +101,7 @@ namespace AuthServer.Service.Concrete
             _repository.Remove(entity);
             await _unitOfWork.SaveChangesAsync();
 
-            return ResponseModel<NoDataDto>.Success(200);
+            return ResponseModel<NoDataDto>.Success(204);
         }
         #endregion
     }
