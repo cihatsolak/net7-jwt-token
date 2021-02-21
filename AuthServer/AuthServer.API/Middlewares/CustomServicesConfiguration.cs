@@ -7,16 +7,12 @@ using AuthServer.Data.Concrete.EntityFrameworkCore.Contexts;
 using AuthServer.Data.Concrete.EntityFrameworkCore.Repositories;
 using AuthServer.Data.Concrete.EntityFrameworkCore.UnitOfWorks;
 using AuthServer.Service.Concrete;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.IdentityModel.Tokens;
 using SharedLibrary.Settings;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace AuthServer.API.Middlewares
 {
@@ -25,7 +21,7 @@ namespace AuthServer.API.Middlewares
         public static void AddSettingsConfiguration(this IServiceCollection services, IConfiguration configuration)
         {
             services.Configure<CustomTokenSetting>(configuration.GetSection(nameof(CustomTokenSetting)));
-            services.Configure<List<Client>>(configuration.GetSection(nameof(Client)));
+            services.Configure<List<Client>>(configuration.GetSection("ClientSettings"));
         }
 
         public static void AddServicesConfiguration(this IServiceCollection services, IConfiguration configuration)
