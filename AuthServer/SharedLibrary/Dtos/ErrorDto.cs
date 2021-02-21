@@ -11,7 +11,10 @@ namespace SharedLibrary.Dtos
 
         public ErrorDto(string error, bool isShow = true)
         {
-            Errors.Add(error);
+            Errors = new List<string>
+            {
+                error
+            };
             IsShow = isShow;
         }
 
@@ -21,7 +24,10 @@ namespace SharedLibrary.Dtos
             IsShow = isShow;
         }
 
-        public List<string> Errors { get; private set; }
+        public List<string> Errors
+        {
+            get; private set;
+        }
         public bool IsShow { get; private set; }
     }
 }

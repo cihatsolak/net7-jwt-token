@@ -13,6 +13,7 @@ namespace AuthServer.Data.Concrete.EntityFrameworkCore.Configurations
             builder.Property(p => p.Stock).IsRequired();
             builder.Property(p => p.Price).HasColumnType("decimal(18,2)");
             builder.Property(p => p.UserId).IsRequired();
+            builder.Property(p => p.UserId).HasMaxLength(50);
         }
     }
 }

@@ -1,20 +1,10 @@
-using AuthServer.Core.Configuration;
-using AuthServer.Core.Domain;
-using AuthServer.Core.Repositories;
-using AuthServer.Core.UnitOfWorks;
-using AuthServer.Data.Concrete.EntityFrameworkCore.Contexts;
-using AuthServer.Data.Concrete.EntityFrameworkCore.Repositories;
-using AuthServer.Data.Concrete.EntityFrameworkCore.UnitOfWorks;
+using AuthServer.API.Middlewares;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using SharedLibrary.Settings;
-using System.Collections.Generic;
 
 namespace AuthServer.API
 {
@@ -27,19 +17,12 @@ namespace AuthServer.API
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
+        // Bu yöntem çalýþma zamaný tarafýndan çaðrýlýr. Kapsayýcýya hizmet eklemek için bu yöntemi kullanýn.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.Configure<CustomTokenSetting>(Configuration.GetSection(nameof(CustomTokenSetting)));
-            services.Configure<List<Client>>(Configuration.GetSection(nameof(Client)));
-
-            services.AddDbContext<AppDbContext>(options =>
-            {
-                options.UseSqlServer(Configuration.GetConnectionString("Default"));
-            }).AddIdentity<User, IdentityRole>();
-
-            services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddSettingsConfiguration(Configuration);
+            services.AddServicesConfiguration(Configuration);
+            services.AddAuthenticationConfiguration(Configuration);
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -48,7 +31,7 @@ namespace AuthServer.API
             });
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        // Bu yöntem çalýþma zamaný tarafýndan çaðrýlýr. HTTP istek ardýþýk düzenini yapýlandýrmak için bu yöntemi kullanýn.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -59,9 +42,9 @@ namespace AuthServer.API
             }
 
             app.UseHttpsRedirection();
-
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

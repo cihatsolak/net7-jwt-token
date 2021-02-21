@@ -75,8 +75,9 @@ namespace AuthServer.Service.Concrete
                 userRefreshToken.Expiration = token.RefreshTokenExpiration;
 
                 _userRefreshTokenRepository.Update(userRefreshToken);
-                await _unitOfWork.SaveChangesAsync();
             }
+
+            await _unitOfWork.SaveChangesAsync();
 
             return ResponseModel<TokenDto>.Success(token, 200);
         }
