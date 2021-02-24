@@ -7,6 +7,7 @@ using AuthServer.Data.Concrete.EntityFrameworkCore.Contexts;
 using AuthServer.Data.Concrete.EntityFrameworkCore.Repositories;
 using AuthServer.Data.Concrete.EntityFrameworkCore.UnitOfWorks;
 using AuthServer.Service.Concrete;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -49,6 +50,14 @@ namespace AuthServer.API.Middlewares
             services.AddScoped<IAuthenticationService, AuthenticationService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<ITokenService, TokenService>();
+        }
+
+        public static void AddFluentValidationConfiguration(this IServiceCollection services)
+        {
+            services.AddControllers().AddFluentValidation(options =>
+            {
+                options.RegisterValidatorsFromAssemblyContaining<Startup>();
+            });
         }
     }
 }

@@ -24,6 +24,7 @@ namespace AuthServer.API
             services.AddSettingsConfiguration(Configuration);
             services.AddServicesConfiguration(Configuration);
             services.AddAuthenticationConfiguration(Configuration);
+            services.AddFluentValidationConfiguration();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
