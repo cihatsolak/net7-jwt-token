@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using SharedLibrary.Extensions;
 
 namespace AuthServer.API
 {
@@ -23,6 +24,7 @@ namespace AuthServer.API
             services.AddSettingsConfiguration(Configuration);
             services.AddServicesConfiguration(Configuration);
             services.AddAuthenticationConfiguration(Configuration);
+            services.AddFluentValidationConfiguration();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -40,7 +42,11 @@ namespace AuthServer.API
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "AuthServer.API v1"));
             }
-
+            else
+            {
+                app.UseCustomExceptionHandler();
+            }
+           
             app.UseHttpsRedirection();
             app.UseRouting();
 

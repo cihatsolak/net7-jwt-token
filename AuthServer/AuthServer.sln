@@ -11,7 +11,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuthServer.Data", "AuthServ
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuthServer.Service", "AuthServer.Service\AuthServer.Service.csproj", "{D570C40E-D329-484B-AED3-D0375A82AD5D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedLibrary", "SharedLibrary\SharedLibrary.csproj", "{39A728C6-FA7E-422A-9BA6-AEFB7790E31F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharedLibrary", "SharedLibrary\SharedLibrary.csproj", "{39A728C6-FA7E-422A-9BA6-AEFB7790E31F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MiniApiProjects", "MiniApiProjects", "{7B4DB559-BA58-4935-9880-841287A33F4C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniApp1.API", "MiniApp1.API\MiniApp1.API.csproj", "{E5276CAC-910D-4D1C-8ACC-B3ED50BACB86}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniApp2.API", "MiniApp2.API\MiniApp2.API.csproj", "{E3DF1DDF-1E8E-4B0E-B771-E7F45C4F044B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniApp3.API", "MiniApp3.API\MiniApp3.API.csproj", "{B9B6046B-AA60-457F-ADA3-E142E2BE9AB8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,9 +47,26 @@ Global
 		{39A728C6-FA7E-422A-9BA6-AEFB7790E31F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{39A728C6-FA7E-422A-9BA6-AEFB7790E31F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{39A728C6-FA7E-422A-9BA6-AEFB7790E31F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E5276CAC-910D-4D1C-8ACC-B3ED50BACB86}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E5276CAC-910D-4D1C-8ACC-B3ED50BACB86}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E5276CAC-910D-4D1C-8ACC-B3ED50BACB86}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E5276CAC-910D-4D1C-8ACC-B3ED50BACB86}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E3DF1DDF-1E8E-4B0E-B771-E7F45C4F044B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E3DF1DDF-1E8E-4B0E-B771-E7F45C4F044B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E3DF1DDF-1E8E-4B0E-B771-E7F45C4F044B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E3DF1DDF-1E8E-4B0E-B771-E7F45C4F044B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B9B6046B-AA60-457F-ADA3-E142E2BE9AB8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B9B6046B-AA60-457F-ADA3-E142E2BE9AB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B9B6046B-AA60-457F-ADA3-E142E2BE9AB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B9B6046B-AA60-457F-ADA3-E142E2BE9AB8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E5276CAC-910D-4D1C-8ACC-B3ED50BACB86} = {7B4DB559-BA58-4935-9880-841287A33F4C}
+		{E3DF1DDF-1E8E-4B0E-B771-E7F45C4F044B} = {7B4DB559-BA58-4935-9880-841287A33F4C}
+		{B9B6046B-AA60-457F-ADA3-E142E2BE9AB8} = {7B4DB559-BA58-4935-9880-841287A33F4C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FBE873CC-F1A3-4512-8B1C-ABAE67A8B452}

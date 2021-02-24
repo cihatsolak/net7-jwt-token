@@ -7,16 +7,17 @@ using AuthServer.Data.Concrete.EntityFrameworkCore.Contexts;
 using AuthServer.Data.Concrete.EntityFrameworkCore.Repositories;
 using AuthServer.Data.Concrete.EntityFrameworkCore.UnitOfWorks;
 using AuthServer.Service.Concrete;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.IdentityModel.Tokens;
+using SharedLibrary.Dtos;
+using SharedLibrary.Models;
 using SharedLibrary.Settings;
-using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 
 namespace AuthServer.API.Middlewares
 {
@@ -25,7 +26,7 @@ namespace AuthServer.API.Middlewares
         public static void AddSettingsConfiguration(this IServiceCollection services, IConfiguration configuration)
         {
             services.Configure<CustomTokenSetting>(configuration.GetSection(nameof(CustomTokenSetting)));
-            services.Configure<List<Client>>(configuration.GetSection(nameof(Client)));
+            services.Configure<List<Client>>(configuration.GetSection("ClientSettings"));
         }
 
         public static void AddServicesConfiguration(this IServiceCollection services, IConfiguration configuration)
@@ -55,32 +56,23 @@ namespace AuthServer.API.Middlewares
             services.AddScoped<ITokenService, TokenService>();
         }
 
-        public static void AddAuthenticationConfiguration(this IServiceCollection services, IConfiguration configuration)
+        public static void AddFluentValidationConfiguration(this IServiceCollection services)
         {
-            var customTokenSettings = configuration.GetSection(nameof(CustomTokenSetting)).Get<CustomTokenSetting>();
+            services.AddControllers().AddFluentValidation(options =>
+            {
+                options.RegisterValidatorsFromAssemblyContaining<Startup>();
+            });
 
-            services.AddAuthentication(options =>
+            services.Configure<ApiBehaviorOptions>(options =>
             {
-                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            })
-            .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, configureOptions =>
-            {
-                configureOptions.TokenValidationParameters = new TokenValidationParameters()
+                options.InvalidModelStateResponseFactory = context =>
                 {
-                    ValidIssuer = customTokenSettings.Issuer,
-                    ValidAudience = customTokenSettings.Audience[0],
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(customTokenSettings.SecurityKey)),
+                    var errors = context.ModelState.Values.Where(p => p.Errors.Count > 0).SelectMany(p => p.Errors).Select(p => p.ErrorMessage);
 
-                    ValidateIssuer = true,
-                    ValidateAudience = true,
-                    ValidateIssuerSigningKey = true,
-                    ValidateLifetime = true,
-                    ClockSkew = TimeSpan.Zero //Sunucular arasındaki oluşabilecek kısa zaman farkı
+                    var errorDto = new ErrorDto(errors.ToList(), true);
+                    var response = ResponseModel<NoContentResult>.Fail(errorDto, 400);
 
-                    /* Farklı ülkelerde ki sunuculardaki zaman farkından dolayı Aynı yerel saate baksana aralarında belki de 1-2 saniye yada 2-3 dakika
-                     * gibi farklar olabilir. Bundan dolayı JWT verilen zamana 5 dakika ekler. Biz ClockSkew'e zero diyerek bu eklenen 5 dakikayı siliyoruz. (Gerek duymadıgımız için)
-                     */
+                    return new BadRequestObjectResult(response);
                 };
             });
         }
