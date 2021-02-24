@@ -9,11 +9,15 @@ using AuthServer.Data.Concrete.EntityFrameworkCore.UnitOfWorks;
 using AuthServer.Service.Concrete;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using SharedLibrary.Dtos;
+using SharedLibrary.Models;
 using SharedLibrary.Settings;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace AuthServer.API.Middlewares
 {
@@ -57,6 +61,19 @@ namespace AuthServer.API.Middlewares
             services.AddControllers().AddFluentValidation(options =>
             {
                 options.RegisterValidatorsFromAssemblyContaining<Startup>();
+            });
+
+            services.Configure<ApiBehaviorOptions>(options =>
+            {
+                options.InvalidModelStateResponseFactory = context =>
+                {
+                    var errors = context.ModelState.Values.Where(p => p.Errors.Count > 0).SelectMany(p => p.Errors).Select(p => p.ErrorMessage);
+
+                    var errorDto = new ErrorDto(errors.ToList(), true);
+                    var response = ResponseModel<NoContentResult>.Fail(errorDto, 400);
+
+                    return new BadRequestObjectResult(response);
+                };
             });
         }
     }
