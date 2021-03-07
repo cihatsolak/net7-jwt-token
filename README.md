@@ -11,28 +11,28 @@ There are four libraries and four web API projects in total within the project.
 ## Libraries
 ![Screenshot_3](https://user-images.githubusercontent.com/54249736/109346864-565e4680-7883-11eb-8380-e6e9f07bd84f.png)
 
-#### Uploaded Packages (SharedLibrary)
+#### Installed Packages (SharedLibrary)
 * Microsoft.AspNetCore.Authentication.JwtBearer
 
-#### Uploaded Packages (AuthServer.Service)
+#### Installed Packages (AuthServer.Service)
 * AutoMapper
 
-#### Uploaded Packages (AuthServer.Data)
+#### Installed Packages (AuthServer.Data)
 * Microsoft.EntityFrameworkCore
 * Microsoft.EntityFrameworkCore.Design 
 * Microsoft.EntityFrameworkCore.SqlServer
 * Microsoft.EntityFrameworkCore.Tools
 
-#### Uploaded Packages (AuthServer.Core)
+#### Installed Packages (AuthServer.Core)
 * Microsoft.AspNetCore.Identity.EntityFrameworkCore
 
-#### Uploaded Packages (AuthServer.API) MAIN PROJECT
+#### Installed Packages (AuthServer.API) MAIN PROJECT
 * FluentValidation.AspNetCore
 * Microsoft.AspNetCore.Authentication.JwtBearer
 * Microsoft.EntityFrameworkCore.Design
 * Swashbuckle.AspNetCore
 
-#### Uploaded Packages (MiniApp1.API, MiniApp2.API, MiniApp3.API)
+#### Installed Packages (MiniApp1.API, MiniApp2.API, MiniApp3.API)
 * Not Found.
 
 #### Contact Addresses
