@@ -33,7 +33,7 @@ There are four libraries and four web API projects in total within the project.
 * Swashbuckle.AspNetCore
 
 #### Installed Packages (MiniApp1.API, MiniApp2.API, MiniApp3.API)
-* Not Found.
+* There is no package installed.
 
 #### Contact Addresses
 ##### Linkedin: [Send a message on Linkedin](https://www.linkedin.com/in/cihatsolak/) 
