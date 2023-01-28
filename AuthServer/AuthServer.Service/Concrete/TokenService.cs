@@ -45,10 +45,12 @@ namespace AuthServer.Service.Concrete
         {
             var claims = new List<Claim>
             {
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 new Claim(ClaimTypes.NameIdentifier, user.Id),
                 new Claim(ClaimTypes.Email, user.Email),
                 new Claim(ClaimTypes.Name, user.UserName),
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+                new Claim(ClaimTypes.Country, user.Country), //claim-based-authorization
+                new Claim(ClaimTypes.DateOfBirth, user.BirthDate.ToShortDateString()) //policy-based-authorization
             };
 
             claims.AddRange(audiences.Select(audience => new Claim(JwtRegisteredClaimNames.Aud, audience)));
