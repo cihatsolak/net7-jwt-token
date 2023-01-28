@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace MiniApp1.API.ClaimsRequirements
 {
-    public class BirthDayRequirement : IAuthorizationRequirement
+    public class AgeRequirement : IAuthorizationRequirement
     {
         public int MinimumAge { get; set; }
 
-        public BirthDayRequirement(int minimumAge)
+        public AgeRequirement(int minimumAge)
         {
             MinimumAge = minimumAge;
         }
@@ -19,9 +19,9 @@ namespace MiniApp1.API.ClaimsRequirements
     /// <summary>
     /// Belirlenen yaş'dan küçük olan kişiler giriş yapamaz.
     /// </summary>
-    public class BirthDayRequirementHandler : AuthorizationHandler<BirthDayRequirement>
+    public class AgeRequirementHandler : AuthorizationHandler<AgeRequirement>
     {
-        protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, BirthDayRequirement requirement)
+        protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, AgeRequirement requirement)
         {
             var dateOfBirthClaim = context.User.Claims.FirstOrDefault(claim => claim.Type == ClaimTypes.DateOfBirth);
             if (dateOfBirthClaim is null)

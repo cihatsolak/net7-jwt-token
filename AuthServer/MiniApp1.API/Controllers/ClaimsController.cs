@@ -8,16 +8,23 @@ namespace MiniApp1.API.Controllers
     [Authorize]
     public class ClaimsController : ControllerBase
     {
-        [Authorize(Roles = "Admin", Policy = "BritishPeople")]
+        [Authorize(Roles = "Admin, Manager", Policy = "BritishPeople")]
         [HttpGet]
         public IActionResult ManagerAndBritish()
         {
             return Ok();
         }
 
-        [Authorize(Roles = "Admin", Policy = "TurkishPeople")]
+        [Authorize(Roles = "Admin, Manager", Policy = "TurkishPeople")]
         [HttpGet]
         public IActionResult ManagerAndTurkish()
+        {
+            return Ok();
+        }
+
+        [Authorize(Roles = "Admin, Manager", Policy = "TurkishAndOver18YearsOld")]
+        [HttpGet]
+        public IActionResult TurkishButHisAgeIs17YearsOld()
         {
             return Ok();
         }
