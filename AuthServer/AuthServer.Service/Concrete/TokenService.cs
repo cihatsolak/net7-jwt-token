@@ -32,7 +32,7 @@ namespace AuthServer.Service.Concrete
         #endregion
 
         #region Private Methods
-        private string CreateRefreshToken()
+        private static string CreateRefreshToken()
         {
             var numberByte = new byte[32];
             using var random = RandomNumberGenerator.Create();
@@ -41,7 +41,7 @@ namespace AuthServer.Service.Concrete
             return Convert.ToBase64String(numberByte);
         }
 
-        private IEnumerable<Claim> GetClaims(User user, List<string> audiences)
+        private static IEnumerable<Claim> GetClaims(User user, IList<string> roles, List<string> audiences)
         {
             var claims = new List<Claim>
             {
@@ -51,12 +51,14 @@ namespace AuthServer.Service.Concrete
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
 
-            claims.AddRange(audiences.Select(x => new Claim(JwtRegisteredClaimNames.Aud, x)));
+            claims.AddRange(audiences.Select(audience => new Claim(JwtRegisteredClaimNames.Aud, audience)));
+
+            claims.AddRange(roles.Select(roleName => new Claim(ClaimTypes.Role, roleName)));
 
             return claims;
         }
 
-        private IEnumerable<Claim> GetClaimsByClient(Client client)
+        private static IEnumerable<Claim> GetClaimsByClient(Client client)
         {
             var claims = new List<Claim>
             {
@@ -71,10 +73,10 @@ namespace AuthServer.Service.Concrete
         #endregion
 
         #region Methods
-        public TokenDto CreateToken(User user)
+        public TokenDto CreateToken(User user, IList<string> roles)
         {
-            var accessTokenExpiration = DateTime.Now.AddMinutes(_customTokenSetting.AccessTokenExpiration); //Token Süresi
-            var refreshTokenExpiration = DateTime.Now.AddMinutes(_customTokenSetting.RefreshTokenExpiration); //Token Süresi
+            var accessTokenExpiration = DateTime.Now.AddHours(_customTokenSetting.AccessTokenExpiration); //Token Süresi
+            var refreshTokenExpiration = DateTime.Now.AddHours(_customTokenSetting.RefreshTokenExpiration); //Token Süresi
 
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_customTokenSetting.SecurityKey)); //Belirlediğim string şifreyi simetrik şifreye çeviriyorum
 
@@ -85,7 +87,7 @@ namespace AuthServer.Service.Concrete
                 issuer: _customTokenSetting.Issuer, //Sağlayıcı
                 expires: accessTokenExpiration, //Token Süresi
                 notBefore: DateTime.Now, //Şuanki saatten itibaren tokena süresini ekle ve geçerli olsun
-                claims: GetClaims(user, _customTokenSetting.Audience),
+                claims: GetClaims(user, roles, _customTokenSetting.Audience),
                 signingCredentials: signingCredentials
             );
 
@@ -105,7 +107,7 @@ namespace AuthServer.Service.Concrete
         }
         public ClientTokenDto CreateTokenByClient(Client client)
         {
-            var accessTokenExpiration = DateTime.Now.AddMinutes(_customTokenSetting.AccessTokenExpiration); //Token Süresi
+            var accessTokenExpiration = DateTime.Now.AddHours(_customTokenSetting.AccessTokenExpiration); //Token Süresi
 
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_customTokenSetting.SecurityKey)); //Belirlediğim string şifreyi simetrik şifreye çeviriyorum
 

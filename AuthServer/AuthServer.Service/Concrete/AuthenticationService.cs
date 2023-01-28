@@ -56,7 +56,9 @@ namespace AuthServer.Service.Concrete
             if (!checkPassword)
                 return ResponseModel<TokenDto>.Fail("Email or password is wrong!", 400, true);
 
-            var token = _tokenService.CreateToken(user);
+            var roles = await _userManager.GetRolesAsync(user);
+
+            var token = _tokenService.CreateToken(user, roles);
 
             var userRefreshToken = await _userRefreshTokenRepository.GetAllByFilter(p => p.UserId.Equals(user.Id)).SingleOrDefaultAsync();
 
@@ -103,7 +105,9 @@ namespace AuthServer.Service.Concrete
             if (user == null)
                 return ResponseModel<TokenDto>.Fail("User not found", 404, true);
 
-            var tokenDto = _tokenService.CreateToken(user);
+            var roles = await _userManager.GetRolesAsync(user);
+
+            var tokenDto = _tokenService.CreateToken(user, roles);
 
             userRefreshToken.Code = tokenDto.RefreshToken;
             userRefreshToken.Expiration = tokenDto.RefreshTokenExpiration;

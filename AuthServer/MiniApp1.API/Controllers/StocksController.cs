@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MiniApp1.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     [Authorize]
     public class StocksController : ControllerBase
