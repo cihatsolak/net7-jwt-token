@@ -75,8 +75,8 @@ namespace AuthServer.Service.Concrete
         #region Methods
         public TokenDto CreateToken(User user, IList<string> roles)
         {
-            var accessTokenExpiration = DateTime.Now.AddMinutes(_customTokenSetting.AccessTokenExpiration); //Token Süresi
-            var refreshTokenExpiration = DateTime.Now.AddMinutes(_customTokenSetting.RefreshTokenExpiration); //Token Süresi
+            var accessTokenExpiration = DateTime.Now.AddHours(_customTokenSetting.AccessTokenExpiration); //Token Süresi
+            var refreshTokenExpiration = DateTime.Now.AddHours(_customTokenSetting.RefreshTokenExpiration); //Token Süresi
 
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_customTokenSetting.SecurityKey)); //Belirlediğim string şifreyi simetrik şifreye çeviriyorum
 
@@ -107,7 +107,7 @@ namespace AuthServer.Service.Concrete
         }
         public ClientTokenDto CreateTokenByClient(Client client)
         {
-            var accessTokenExpiration = DateTime.Now.AddMinutes(_customTokenSetting.AccessTokenExpiration); //Token Süresi
+            var accessTokenExpiration = DateTime.Now.AddHours(_customTokenSetting.AccessTokenExpiration); //Token Süresi
 
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_customTokenSetting.SecurityKey)); //Belirlediğim string şifreyi simetrik şifreye çeviriyorum
 
