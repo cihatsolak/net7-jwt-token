@@ -9,7 +9,7 @@ namespace AuthServer.Data.Concrete.EntityFrameworkCore.Configurations
         public void Configure(EntityTypeBuilder<User> builder)
         {
             builder.Property(p => p.Id).ValueGeneratedOnAdd();
-            builder.Property(p => p.CityName).HasMaxLength(50);
+            builder.Property(p => p.Country).HasMaxLength(50);
         }
     }
 }

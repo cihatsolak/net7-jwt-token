@@ -5,6 +5,6 @@ namespace AuthServer.Core.Domain
 {
     public class User : IdentityUser<string>, IEntityTable
     {
-        public string CityName { get; set; }
+        public string Country { get; set; }
     }
 }

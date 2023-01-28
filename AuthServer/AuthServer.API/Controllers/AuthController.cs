@@ -1,5 +1,4 @@
 ﻿using AuthServer.Core.DTOs;
-using AuthServer.Core.Services;
 using Microsoft.AspNetCore.Mvc;
 using SharedLibrary.Dtos;
 using System.Threading.Tasks;
