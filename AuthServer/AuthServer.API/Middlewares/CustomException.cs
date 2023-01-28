@@ -34,7 +34,7 @@ namespace AuthServer.API.Middlewares
                         }
 
                         var responseModel = ResponseModel<NoDataDto>.Fail(errorDto, 500);
-                        await context.Response.WriteAsync(JsonSerializer.Serialize(responseModel))
+                        await context.Response.WriteAsync(JsonSerializer.Serialize(responseModel));
                     }
                 });
             });
