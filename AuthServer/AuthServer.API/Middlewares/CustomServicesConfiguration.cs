@@ -35,7 +35,7 @@ namespace AuthServer.API.Middlewares
             {
                 options.UseSqlServer(configuration.GetConnectionString("Default"), sqlServerOptionsAction =>
                 {
-                    sqlServerOptionsAction.MigrationsAssembly("AuthServer.Data"); //Migration işlemini hangi class library'de gerçekleştirmek istiyorum?
+                    sqlServerOptionsAction.MigrationsAssembly(typeof(AppDbContext).Assembly.FullName); //Migration işlemini hangi class library'de gerçekleştirmek istiyorum?
                 });
             });
 
@@ -58,10 +58,7 @@ namespace AuthServer.API.Middlewares
 
         public static void AddFluentValidationConfiguration(this IServiceCollection services)
         {
-            services.AddControllers().AddFluentValidation(options =>
-            {
-                options.RegisterValidatorsFromAssemblyContaining<Startup>();
-            });
+            services.AddFluentValidationAutoValidation();
 
             services.Configure<ApiBehaviorOptions>(options =>
             {
