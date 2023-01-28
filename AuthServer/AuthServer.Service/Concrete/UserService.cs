@@ -2,7 +2,9 @@
 using AuthServer.Core.DTOs;
 using AuthServer.Core.Services;
 using AuthServer.Service.AutoMappers;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using SharedLibrary.Dtos;
 using SharedLibrary.Models;
 using System.Linq;
@@ -14,12 +16,16 @@ namespace AuthServer.Service.Concrete
     {
         #region Fields
         private readonly UserManager<User> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
         #endregion
 
         #region Ctor
-        public UserService(UserManager<User> userManager)
+        public UserService(
+            UserManager<User> userManager,
+            RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
+            _roleManager = roleManager;
         }
         #endregion
 
@@ -55,6 +61,43 @@ namespace AuthServer.Service.Concrete
             return ResponseModel<UserDto>.Success(userDto, 200);
 
         }
+
+        public async Task<ResponseModel<NoDataDto>> CreateUserRolesAsync(string userName)
+        {
+            await CheckRolesAsync();
+
+            var user = await _userManager.FindByNameAsync(userName);
+            if (user is null)
+            {
+                return ResponseModel<NoDataDto>.Fail("user not found!", 404, true);
+            }
+
+            await _userManager.AddToRoleAsync(user, "Admin");
+            await _userManager.AddToRoleAsync(user, "Manager");
+
+            return ResponseModel<NoDataDto>.Success(StatusCodes.Status201Created);
+        }
         #endregion
+
+        private async Task CheckRolesAsync()
+        {
+            bool adminRoleExist = await _roleManager.RoleExistsAsync("Admin");
+            if (!adminRoleExist)
+            {
+                await _roleManager.CreateAsync(new IdentityRole
+                {
+                    Name = "Admin"
+                });
+            }
+
+            bool managerRoleExist = await _roleManager.RoleExistsAsync("Manager");
+            if (!managerRoleExist)
+            {
+                await _roleManager.CreateAsync(new IdentityRole
+                {
+                    Name = "Manager"
+                });
+            }
+        }
     }
 }
